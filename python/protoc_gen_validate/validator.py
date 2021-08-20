@@ -1,15 +1,20 @@
+from __future__ import unicode_literals
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+
 import re
 import struct
 import sys
 import time
 import uuid
-from functools import lru_cache
 from ipaddress import IPv4Address, IPv6Address, ip_address
-from urllib import parse as urlparse
+from urlparse import urlparse
 
 from google.protobuf.message import Message
 from jinja2 import Template
 from validate_email import validate_email
+from lru import lru_cache
 
 printer = ""
 
@@ -46,13 +51,13 @@ class ValidatingMessage(object):
             return False
 
 
-def validate(proto_message: Message):
+def validate(proto_message):
     return _validate_inner(ValidatingMessage(proto_message))(proto_message)
 
 
 # Cache generated functions with the message descriptor's full_name as the cache key
 @lru_cache()
-def _validate_inner(proto_message: Message):
+def _validate_inner(proto_message):
     func = file_template(proto_message)
     global printer
     printer += func + "\n"
