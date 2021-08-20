@@ -13,8 +13,8 @@ from urlparse import urlparse
 
 from google.protobuf.message import Message
 from jinja2 import Template
-from validate_email import validate_email
-from lru import lru_cache
+from .validate_email import validate_email
+from .lru import lru_cache
 
 printer = ""
 
